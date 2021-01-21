@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1022088671180",
+    "project_id": "signdemo-1bd69",
+    "storage_bucket": "signdemo-1bd69.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1022088671180:android:7ccf6c6cf1d3e96d263769",
+        "android_client_info": {
+          "package_name": "com.shiraj.googlesigndemo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1022088671180-j2092de5k1cjq43qv1fargae4j7241ki.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAegdQb_hnrwvJ4Cbo-nUXLA_0lOh8JhiI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1022088671180-j2092de5k1cjq43qv1fargae4j7241ki.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
