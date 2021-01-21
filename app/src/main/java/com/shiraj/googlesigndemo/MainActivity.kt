@@ -3,6 +3,8 @@ package com.shiraj.googlesigndemo
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     private val RC_SIGN_IN: Int = 123
     private lateinit var mGoogleSignInClient: GoogleSignInClient
     private val TAG: String = "MainActivity"
+    private lateinit var progressBar: ProgressBar
 
     override fun onStart() {
         super.onStart()
@@ -29,12 +32,12 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         Fresco.initialize(this);
         auth = FirebaseAuth.getInstance()
+        progressBar = findViewById(R.id.progressBar)
 
         createRequest()
         findViewById<TextView>(R.id.tvGoogleSignIn).setOnClickListener {
@@ -56,6 +59,7 @@ class MainActivity : AppCompatActivity() {
     private fun signIn() {
         val signInIntent = mGoogleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
+        progressBar.visibility = View.VISIBLE
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -72,19 +76,21 @@ class MainActivity : AppCompatActivity() {
             } catch (e: ApiException) {
                 // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e)
-                Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Exception $e", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
     private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
+
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success")
                     //val user = auth.currentUser
+                    progressBar.visibility = View.GONE
                     val intent = Intent(this, ProfileActivity::class.java)
                     startActivity(intent)
                 } else {
